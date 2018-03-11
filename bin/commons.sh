@@ -7,10 +7,9 @@ function contains() {
 
 function interpolate() {
     local placeholder=$1
-    local replacement=$2
-    local source=$3
-
-    sed -e "s/{{$placeholder}}/$replacement/g" $(echo "$source")
+    local replacement=$(echo $2 | sed 's/\//\\\//g')
+    local input=${3:-$(</dev/stdin )}
+    echo $input | sed -e "s/{{$placeholder}}/$replacement/g"
 }
 
 function choice_list() {
@@ -22,8 +21,21 @@ function choice_list() {
     select answer in $list; do
         if [ -n $answer ]
         then
-            echo $answerr
+            echo $answer
         fi
         break
     done
+}
+
+function y_or_n_question() {
+    local question="$1 [y|n]: "
+    read -p "$question" answer
+    case $answer in
+        y|Y )
+            echo "yes"
+            ;;
+        * )
+            echo "no"
+            ;;
+    esac
 }

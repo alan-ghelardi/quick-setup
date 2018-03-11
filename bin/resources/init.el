@@ -1,6 +1,6 @@
-(defconst my-emacspeak-src-dir "{{emacspeak_dir}}")
+(defconst my-emacspeak-src-dir "{{emacspeak-dir}}")
 
-(defconst my-emacspeak-speech-server "{{speech_server}}")
+(defconst my-emacspeak-speech-server "{{speech-server}}")
 
 (defconst my-emacspeak-speech-language "en-us")
 

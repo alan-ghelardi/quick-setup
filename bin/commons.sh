@@ -8,8 +8,7 @@ function contains() {
 function interpolate() {
     local placeholder=$1
     local replacement=$(echo $2 | sed 's/\//\\\//g')
-    local input=${3:-$(</dev/stdin )}
-    echo $input | sed -e "s/{{$placeholder}}/$replacement/g"
+    cat /dev/stdin | sed -e "s/{{$placeholder}}/$replacement/g"
 }
 
 function choice_list() {

@@ -8,9 +8,9 @@ function create_emacs_init_file() {
     local emacspeak_dir=$1
     local speech_server=$2
     cat "${cur_dir}/resources/init.el" \
-        | interpolate emacspeak-dir x \
+        | interpolate emacspeak-dir $emacspeak_dir \
         | interpolate speech-server $speech_server \
-                      > .emacs.el
+                      > ~/.emacs.el
 }
 
 emacspeak_repo="https://github.com/tvraman/emacspeak"
@@ -21,7 +21,10 @@ mkdir -p $emacspeak_dir
 
 cd $emacspeak_dir
 
-#git clone $emacspeak_repo .
+if [ ! -d .git ]
+then
+    git clone $emacspeak_repo .
+fi
 
 choice_list "Which version of Emacspeak would you like to install?" \
             "Latest $(git tag -l --sort -v:refname | grep -P '^\d+.\d+.\d+$')"
